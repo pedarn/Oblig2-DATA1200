@@ -172,8 +172,8 @@ main>article>img ~ * {
 /* The following two rulesets could also be used */
 /* main>article:nth-of-type(3) {
     transform: scaleY(-1);
-}
-
+} */
+/* 
 main>article:nth-of-type(3)>* {
     transform: scaleY(-1);
 } */
