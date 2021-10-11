@@ -110,7 +110,9 @@ main {
 #intro-container {
     padding: 2rem;
 
-    z-index: 1;
+    /* Used to create an isolated stacking context so the pseudo element with the 
+    background color doesn't end up behind the element */
+    isolation: isolate;
 }
 
 /* Background color as a pseudo element so it can be 
