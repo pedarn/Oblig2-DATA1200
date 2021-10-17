@@ -55,7 +55,7 @@ p {
     line-height: 1.5;
 }
 
-/* Setter bredden på elementene utenom header */
+/* Sets the widht of body elements exept header */
 body>*:not(header) {
     width: var(--content-width);
 }
