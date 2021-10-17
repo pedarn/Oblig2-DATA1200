@@ -20,7 +20,6 @@ body>* {
 }
 
 /* Rules as specified for screens under 600px, some overwritten later.*/
-
 html {
     font-family: Lato, sans-serif;
     font-size: 14px;
@@ -30,7 +29,7 @@ body {
     position: relative;
     background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
-    font-size: 1.2em;
+    font-size: 1.2rem;
 }
 
 h1,
@@ -63,25 +62,6 @@ header {
     margin: 0 auto;
 }
 
-/* Setting up the background as a pseudo element gives more controll of its size and positioning */
-header::before {
-    content: "";
-
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-
-    width: 100vw;
-    height: 100%;
-
-    z-index: -1;
-
-    background-image: url(/assets/img/studentsbg.png);
-    background-position: top;
-    background-size: auto;
-    background-attachment: fixed;
-}
-
 header>div {
     /* Absolutely positioned relative to the header. With a -4rem bottom offset */
     position: absolute;
@@ -98,6 +78,31 @@ header>div {
     color: white;
 }
 
+/* Makes the text in the header center aligned even on very large displays. 
+Needed because of the max-width on paragraphs */
+header p {
+    margin: 0 auto;
+}
+
+/* Setting up the background as a pseudo element gives more controll of its size and positioning */
+header::before {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    width: 100vw;
+    height: 100%;
+
+    z-index: -1;
+
+    background-image: url(/assets/img/studentsbg.png);
+    background-position: top;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 
 main {
     margin: calc(4rem + 2rem) auto 2rem auto;
@@ -107,7 +112,16 @@ main {
 }
 
 
-#intro-container {
+/* Styling of the articles in the main section */
+main>article {
+    padding: 2rem;
+    position: relative;
+
+    border-bottom: 0.1px solid lightgray;
+}
+
+/* Styling of the first article only */
+main>article:first-of-type {
     padding: 2rem;
 
     /* Used to create an isolated stacking context so the pseudo element with the 
@@ -117,7 +131,7 @@ main {
 
 /* Background color as a pseudo element so it can be 
 resized to fit the left column on larger screen sizes */
-#intro-container::before {
+main>article:first-of-type::before {
     content: "";
 
     position: absolute;
@@ -131,55 +145,66 @@ resized to fit the left column on larger screen sizes */
     background-color: #c5192d;
 }
 
-#intro-container li::before {
+main>article:first-of-type li {
+    list-style: none;
+}
+
+main>article:first-of-type li::before {
     width: 1rem;
     margin: 1rem 1rem 0rem;
 }
 
-#intro-container li:nth-child(1)::before {
-    content: "\1F64C";
+/* Styling the list bullets as emojies */
+main>article:first-of-type li:nth-child(1)::before {
+    content: "\1F64C"; /* Raised hands */
 }
 
-#intro-container li:nth-child(2)::before {
-    content: "\1F3EB";
+main>article:first-of-type li:nth-child(2)::before {
+    content: "\1F3EB"; /* School */
 }
 
-#intro-container li:nth-child(3)::before {
-    content: "\1F4DA";
-}
-
-main>article {
-    padding: 2rem;
-    position: relative;
-
-    border-bottom: 0.1px solid lightgray;
-
-    /* This is a trick I found to place the text before the image without using flex or grid.
-    The benefit to this over transform: scaleY(-1) on the article and the items is that you dont 
-    need to identify what entire article needs to be flipped, and you can select elements based on 
-    what you want to appear first (in the header of the table) */
-    display: table;
+main>article:first-of-type li:nth-child(3)::before {
+    content: "\1F4DA"; /* Pile of books */
 }
 
 main>article>img {
     max-width: 100%;
 }
 
-/* Any content that follows an image is placed ahead of the image.
-This has the same effect as restructuring the html so that <img> is the last element in the article*/
-main>article>img ~ * {
-    display: table-header-group;
+/* The following media queery is used to fix the order of the image and text in the articles */
+@media screen and (max-width: 600px) {
+
+    /* The following two rulesets defines the article as a table and places any content following an image in the
+    header of the table (i.e before the image). This is a flexible way to fix the order and would work for any amount
+    of disordered articles */
+    main>article {
+        display: table;
+    }
+
+    main>article>img ~ * {
+        display: table-header-group;
+    }
+
+    /* The following two rulesets could also be used to achieve the same result but is a more spesific aproach that 
+    targets an entire article. This aproach is  perhaps simpler but would need to be repeated for each article 
+    that is ordered incorrectly. */
+
+    /* 
+    main>article:nth-of-type(3) {
+        transform: scaleY(-1);
+    }
+    
+    main>article:nth-of-type(3)>* {
+        transform: scaleY(-1);
+    }  
+    */
+
+    /* Neither of these aproaches work very well for a colmn layout like we use at larger screen sizes so they are
+    contained in this media queery. A better aproach would be to restructure the html if a solution suitable for any 
+    screen size was needed. */
 }
 
-/* The following two rulesets could also be used */
-/* main>article:nth-of-type(3) {
-    transform: scaleY(-1);
-} */
-/* 
-main>article:nth-of-type(3)>* {
-    transform: scaleY(-1);
-} */
-
+/* General styling of the footer */
 footer {
     margin: 0 auto;
     padding: 1rem 2rem;
@@ -188,6 +213,12 @@ footer {
 
     text-align: center;
     color: white;
+}
+
+/* Makes the text in the footer center aligned even on very large displays. 
+Needed because of the max-width on paragraphs */
+footer p {
+    margin: 0 auto;
 }
 
 footer a {
@@ -216,25 +247,32 @@ footer a {
         right: 50%;
     }
 
-    main>article::after {
-        content: '';
-	    display: inline-block;
-	    width: 100%;
+    /* The folowing two rulesets make the alignement of the article contents a perfect 45% 10%(margin) 45%.
+    Without them the space between the inline elements would take up a few pixels and the contents would owerflow 
+    to the next line. The font size is reset to the global 1.2rem right away so its just the container that has a 
+    font size of 0, and no other text is affected.
+    */
+    main>article {
+        font-size: 0;
+    }
+
+    main>article>* {
+        font-size: 1.2rem;
     }
 
     main>article>* {
         display: inline-block;
         text-align: left;
-
+        
         width: 45%;
-
+        
         vertical-align: top;
     }
-
-    main>article>img ~ * {
-        display: inline-block;
+    
+    main>article>*:first-child {
+        margin-right: 10%;
     }
- 
+
     main>article>*:last-child {
         background-color: whitesmoke;
         height: 100%;
