@@ -97,7 +97,7 @@ header::before {
 
     z-index: -1;
 
-    background-image: url(/assets/img/studentsbg.png);
+    background-image: url(assets/img/studentsbg.png);
     background-position: top;
     background-size: cover;
     background-attachment: fixed;
