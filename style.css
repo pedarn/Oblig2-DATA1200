@@ -4,7 +4,7 @@
 /* Reference to font in assets */
 @font-face {
     font-family: "Monsterrat Bold";
-    src: url(/assets/fonts/Montserrat-Bold.ttf);
+    src: url(assets/fonts/Montserrat-Bold.ttf);
 }
 
 :root {
