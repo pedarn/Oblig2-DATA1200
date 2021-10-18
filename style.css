@@ -139,6 +139,10 @@ main>article:first-of-type::before {
     background-color: #c5192d;
 }
 
+main>article:first-of-type ul {
+    padding: 0;
+}
+
 main>article:first-of-type li {
     list-style: none;
 }
